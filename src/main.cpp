@@ -3,10 +3,10 @@
 uint8_t max_result_value = 2;
 
 // The colour of the dots which show the number.
-const CRGB g_foregroundColour{ 0xffffaa };
+const CRGB g_foregroundColour{ 0x303024 };
 
 // The colour of all the other pixels.
-const CRGB g_backgroundColour{ 0x330000 };
+const CRGB g_backgroundColour{ 0x190000 };
 
 // Get a random number between 1 and 6 (inclusive).
 uint8_t getRandomDiceRoll()
@@ -88,10 +88,12 @@ void setup()
   drawBackground();
 
   drawNumber(max_result_value, g_foregroundColour);
+  //M5.dis.setBrightness(32);
 }
 
 void loop()
 {
+  //M5.dis.setBrightness(18);
   // Clear the matrix display when the button is pushed down.
   if (M5.Btn.wasPressed())
   {
@@ -125,7 +127,8 @@ void loop()
   if (magnitude > 8.0 && millis() - lastShakeTime > 500) {
     //Serial.println("Shake detected!");
     lastShakeTime = millis();
-
+    
+    //M5.dis.setBrightness(64);
     uint8_t randVal = getRandomNumber(2, max_result_value);
     for (int i=0; i<=getRandomNumber(10, 30); i++){
       M5.dis.clear();
@@ -140,11 +143,13 @@ void loop()
       delay(getRandomNumber(100, 200));
       M5.update();
     }
-
+    
     drawBackground();
     drawNumber(getRandomNumber(1, max_result_value), g_foregroundColour);
+    
   }
   
   delay(25);
+  
   M5.update();
 }
